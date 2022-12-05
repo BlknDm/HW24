@@ -1,4 +1,4 @@
-from typing import List, Iterator, Any, Dict, Union
+from typing import List, Iterator, Any, Dict, Union, Iterable, Optional
 import re
 
 
@@ -40,8 +40,9 @@ CMD_TO_FUNCTION = {
 }
 
 
-def query_build(cmd, param, filename, data=None) -> Iterator[str]:
+def query_build(cmd: str, param: str, filename: str, data: Optional[List[str]]) -> List[str]:
     if not data:
         with open(f'data/{filename}') as file:
             data = list(map(lambda row: row.strip(), file))
-    return CMD_TO_FUNCTION[cmd](param=param, data=data)
+    res = CMD_TO_FUNCTION[cmd](param=param, data=data)
+    return res

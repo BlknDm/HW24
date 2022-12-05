@@ -1,9 +1,7 @@
-from typing import List, Any
-
 from flask import Blueprint, request, jsonify, Response
-from schemas import RequestParamsListSchema
 from marshmallow import ValidationError
 
+from schemas import RequestParamsListSchema
 from utils import query_build
 
 main_blueprint = Blueprint('main', __name__)
@@ -15,7 +13,7 @@ def perform_query() -> str | Response:
     try:
         params = RequestParamsListSchema().load(request.json)
     except ValidationError as error:
-        return error.messages, '400'
+        return Response(error.messages)
 
     result = None
     for query in params['queries']:
@@ -26,4 +24,4 @@ def perform_query() -> str | Response:
             data=result,
         )
 
-    return jsonify(result), '200'
+    return jsonify(result)
