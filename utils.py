@@ -30,7 +30,7 @@ def query_regex(param: str, data: List[str]) -> Iterator[str]:
     return filter(lambda x: re.search(regex, x), data)
 
 
-CMD_TO_FUNCTION = {
+CMD_TO_FUNCTION: Dict[str, Any] = {
     'filter': query_filter,
     'map': query_map,
     'unique': query_unique,

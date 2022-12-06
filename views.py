@@ -1,3 +1,5 @@
+from typing import Union, Mapping, Any, Optional, List
+
 from flask import Blueprint, request, jsonify, Response
 from marshmallow import ValidationError
 
@@ -15,7 +17,7 @@ def perform_query() -> str | Response:
     except ValidationError as error:
         return Response(error.messages)
 
-    result = None
+    result: List[str]
     for query in params['queries']:
         result = query_build(
             cmd=query['cmd'],
