@@ -1,4 +1,4 @@
-from typing import List, Iterator, Any, Dict, Union, Iterable, Optional
+from typing import List, Iterator, Any, Dict, Union, Iterable, Optional, Callable
 import re
 
 
@@ -30,7 +30,7 @@ def query_regex(param: str, data: List[str]) -> Iterator[str]:
     return filter(lambda x: re.search(regex, x), data)
 
 
-CMD_TO_FUNCTION: Dict[str, Any] = {
+CMD_TO_FUNCTION: Dict[str, Callable] = {
     'filter': query_filter,
     'map': query_map,
     'unique': query_unique,
